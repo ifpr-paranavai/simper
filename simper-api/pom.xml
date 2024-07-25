@@ -120,6 +120,14 @@
 		</dependency>
 		<!-- MODELMAPPER -->
 
+		<!-- APACHE -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.15.0</version>
+		</dependency>
+		<!-- APACHE -->
+
 		<!-- THYMELEAF -->
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
