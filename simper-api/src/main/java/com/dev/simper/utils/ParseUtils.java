@@ -17,9 +17,9 @@ public class ParseUtils {
      * Method responsible for converting/mapping an object to a specific class
      * @param sourceObject
      * @param destinationClass
-     * @return V mapped object
      * @param <T>
      * @param <V>
+     * @return V mapped object
      */
     public static <T, V> V parse(T sourceObject, Class<V> destinationClass) {
         V v = null;
@@ -38,7 +38,7 @@ public class ParseUtils {
      * @param <V>
      * @param sourceList
      * @param destinationClass
-     * @return
+     * @return List<V> list of mapped object
      */
     public static <T, V> List<V> parse(List<T> sourceList, Class<V> destinationClass) {
         List<V> vList = new ArrayList<V>();
