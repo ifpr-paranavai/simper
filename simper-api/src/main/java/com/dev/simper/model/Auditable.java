@@ -13,6 +13,7 @@ import lombok.Data;
 public class Auditable {
     @CreationTimestamp
     private Date createdDate;
+    
     @UpdateTimestamp
     private Date editedDate;
 }

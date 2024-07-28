@@ -16,16 +16,23 @@ public class Institution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
+
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @Column(nullable = false)
+
+    @Column(name = "domain", nullable = false)
     private String domain;
-    @Column(nullable = false, unique = true)
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
-    @Column(nullable = false, unique = true)
-    private String emailResposible;
-    @Column(nullable = false, unique = true)
+
+    @Column(name = "email_responsible", nullable = false, unique = true)
+    private String emailResponsible;
+
+    @Column(name = "cnpj", nullable = false, unique = true)
     private String cnpj;
+
     @Lob
+    @Column(name = "logo")
     private String logo;
 }

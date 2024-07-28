@@ -30,19 +30,29 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String name;
-    @Column(nullable = false, unique = true)
-    private String email;
-    private String password;
-    private String status;
-    private String note;
-    private String verificationCode;
-    private LocalDateTime verificationExpiry;
-    private Employee employee;
-    private Institution institution;
 
-    @OneToMany(mappedBy = "users", orphanRemoval = true, cascade = { CascadeType.PERSIST,
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "verification_code")
+    private String verificationCode;
+
+    @Column(name = "verification_expiry")
+    private LocalDateTime verificationExpiry;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = { CascadeType.PERSIST,
             CascadeType.MERGE }, fetch = FetchType.EAGER)
     @Setter(value = AccessLevel.NONE)
     private List<UserRoles> userRoles = new ArrayList<>();
@@ -69,6 +79,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.getStatus().equals("ACTIVE");
-    }   
-
+    }
 }

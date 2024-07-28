@@ -17,10 +17,12 @@ import lombok.Data;
 public class UserRoles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  
+    private Long id;
+    
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private Role role;    
+    private Role role;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
