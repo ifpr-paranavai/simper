@@ -1,10 +1,10 @@
 package com.dev.simper.dto;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class AuthRequestDto {
-    private String username;
+    private String email;
     
     private String password;
 }

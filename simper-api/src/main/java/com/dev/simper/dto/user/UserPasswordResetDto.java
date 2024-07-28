@@ -2,9 +2,9 @@ package com.dev.simper.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class UserPasswordResetDto {
     @NotBlank(message = "{email.required}")
     @Email(message = "{email.invalid}")
