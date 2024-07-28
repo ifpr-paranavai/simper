@@ -18,9 +18,9 @@ import com.dev.simper.service.InstitutionService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/v1/institutions")
+@CrossOrigin
 public class InstitutionController {
 
     public final InstitutionService institutionService;

@@ -1,9 +1,9 @@
 package com.dev.simper.controller;
 
-import lombok.Data;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dev.simper.dto.AuthRequestDto;
+import com.dev.simper.dto.AuthResponseDto;
 import com.dev.simper.security.JwtTokenUtil;
 import com.dev.simper.service.UserDetailsServiceImpl;
 
@@ -33,37 +35,16 @@ public class AuthController {
         this.userDetailsService = userDetailsServiceImpl;
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-        );
-
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authRequest.getUsername());
-
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthResponse(jwt));
-    }
-}
-
-@Data
-class AuthRequest {
-    private String username;
-    private String password;
-
-    // getters and setters
-}
-@Data
-class AuthResponse {
-    private final String jwt;
-
-    public AuthResponse(String jwt) {
-        this.jwt = jwt;
-    }
-
-    public String getJwt() {
-        return jwt;
+    @PostMapping
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequestDto dto) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
+            final String jwt = jwtTokenUtil.generateToken(userDetails);
+            
+            return ResponseEntity.ok(new AuthResponseDto(jwt));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
     }
 }
