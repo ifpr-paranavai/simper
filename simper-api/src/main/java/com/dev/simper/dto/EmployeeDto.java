@@ -9,8 +9,10 @@ import lombok.Data;
 @Data
 public class EmployeeDto {
     private Long id;
+
     @NotBlank(message = "{name.required}")
     private String name;
+    
     @NotNull(message = "{institution.required}")
     private Institution institution;
 }
