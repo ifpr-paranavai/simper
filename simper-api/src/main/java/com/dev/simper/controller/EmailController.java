@@ -1,6 +1,5 @@
 package com.dev.simper.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,11 +12,14 @@ import jakarta.mail.MessagingException;
 
 
 @RestController
-@RequestMapping("/api/v1/email")
+@RequestMapping("/v1/email")
 public class EmailController {
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
+
+    public EmailController(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
     @GetMapping("/send-email")
     public String sendEmail() {

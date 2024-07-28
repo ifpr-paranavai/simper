@@ -1,6 +1,5 @@
 package com.dev.simper.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,20 +24,29 @@ import com.dev.simper.service.UserDetailsServiceImpl;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/user-account")
+@RequestMapping("/v1/user-account")
 @CrossOrigin
 public class UserAccountController {
-    @Autowired
+
     private UserAccountService userAccountService;
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    public UserAccountController(
+        UserAccountService userAccountService,
+        AuthenticationManager authenticationManager,
+        JwtTokenUtil jwtTokenUtil,
+        UserDetailsServiceImpl userDetailsServiceImpl
+    ) {
+        this.userAccountService = userAccountService;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsServiceImpl;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {

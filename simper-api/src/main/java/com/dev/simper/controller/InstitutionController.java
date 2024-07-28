@@ -3,6 +3,7 @@ package com.dev.simper.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dev.simper.dto.InstitutionDto;
 import com.dev.simper.service.InstitutionService;
 
+import jakarta.validation.Valid;
+
+@CrossOrigin
 @RestController
-@RequestMapping("/api/v1/institutions")
+@RequestMapping("/v1/institutions")
 public class InstitutionController {
 
     public final InstitutionService institutionService;
@@ -26,7 +30,7 @@ public class InstitutionController {
     }
 
     @PostMapping
-    ResponseEntity<InstitutionDto> save(@RequestBody InstitutionDto dto) {
+    ResponseEntity<InstitutionDto> save(@Valid @RequestBody InstitutionDto dto) {
         return ResponseEntity.ok(institutionService.save(dto));
     }
 
