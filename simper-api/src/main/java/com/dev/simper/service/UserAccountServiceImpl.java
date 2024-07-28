@@ -69,7 +69,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         if (isValidVerificationCode(user, dto.getCode())) {
             user.setPassword(passwordEncoder.encode(dto.getPassword()));
-            //user.setPassword("alterar a senha");
             user.setStatus("ACTIVE");
             clearVerificationCode(user);
             userRepository.saveAndFlush(user);
@@ -104,7 +103,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         context.setVariable("code", verificationCode);
         context.setVariable("name", model.getName());        
 
-        emailService.sendTemplateEmail(model.getEmail(), "Definição de senha", context, "userPasswordUpdate");
+        emailService.sendTemplateEmail(model.getEmail(), "Password definition", context, "userPasswordUpdate");
     }
 
     private String generateVerificationCode() {
