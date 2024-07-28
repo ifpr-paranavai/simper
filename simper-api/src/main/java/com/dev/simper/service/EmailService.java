@@ -2,7 +2,6 @@ package com.dev.simper.service;
 
 import org.springframework.stereotype.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,11 +15,14 @@ import jakarta.mail.internet.MimeMessage;
 @Service
 public class EmailService {
 
-    @Autowired
     private JavaMailSender mailSender;
 
-    @Autowired
     private TemplateEngine templateEngine;
+
+    public EmailService(JavaMailSender javaMailSender, TemplateEngine templateEngine) {
+        this.mailSender = javaMailSender;
+        this.templateEngine = templateEngine;
+    }
 
     /**
      * Envia um email simples com o destinatário, assunto e texto fornecidos.
