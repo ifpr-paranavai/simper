@@ -19,6 +19,7 @@ import com.dev.simper.service.UserDetailsServiceImpl;
 public class WebSecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
+    
     private final JwtRequestFilter jwtRequestFilter;
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, JwtRequestFilter jwtRequestFilter) {
@@ -40,7 +41,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/api/v1/user-account/*").permitAll()
+            .requestMatchers("/v1/user-account*").permitAll()
+            .requestMatchers("/v1/institutions").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
