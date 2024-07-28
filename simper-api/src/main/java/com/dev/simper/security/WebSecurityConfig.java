@@ -41,9 +41,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/v1/user-account*").permitAll()
-            .requestMatchers("/v1/institutions").permitAll()
-                .anyRequest().authenticated()
+            .requestMatchers("/v1/user-account/*", "/v1/institutions")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
