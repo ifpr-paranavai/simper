@@ -1,12 +1,11 @@
 package com.dev.simper.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.dev.simper.dto.user.RoleDto;
-import com.dev.simper.service.RoleService;
+import com.dev.simper.service.RoleServiceImpl;
 
 import java.util.List;
 
@@ -14,39 +13,34 @@ import java.util.List;
 @RequestMapping("/v1/roles")
 public class RoleController {
 
-    private RoleService roleService;
+    private RoleServiceImpl roleServiceImpl;
 
-    public RoleController(RoleService roleService) {
-        this.roleService = roleService;
+    public RoleController(RoleServiceImpl roleServiceImpl) {
+        this.roleServiceImpl = roleServiceImpl;
     }
 
     @GetMapping
-    public ResponseEntity<List<RoleDto>> getAllRoles() {
-        List<RoleDto> roles = roleService.getAllRoles();
-        return new ResponseEntity<>(roles, HttpStatus.OK);
+    public ResponseEntity<List<RoleDto>> findAll() {
+        return ResponseEntity.ok(roleServiceImpl.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDto> getRoleById(@PathVariable Long id) {
-        RoleDto role = roleService.getRoleById(id);
-        return new ResponseEntity<>(role, HttpStatus.OK);
+    public ResponseEntity<RoleDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(roleServiceImpl.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<RoleDto> createRole(@Valid @RequestBody RoleDto roleDto) {
-        RoleDto createdRole = roleService.createRole(roleDto);
-        return new ResponseEntity<>(createdRole, HttpStatus.CREATED);
+    public ResponseEntity<RoleDto> save(@Valid @RequestBody RoleDto dto) {
+        return ResponseEntity.ok(roleServiceImpl.save(dto));
     }
 
     @PutMapping
-    public ResponseEntity<RoleDto> updateRole(@Valid @RequestBody RoleDto roleDto) {
-        RoleDto updatedRole = roleService.updateRole(roleDto);
-        return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+    public ResponseEntity<RoleDto> update(@Valid @RequestBody RoleDto dto) {
+        return ResponseEntity.ok(roleServiceImpl.update(dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRole(@PathVariable Long id) {
-        roleService.deleteRole(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public void delete(@PathVariable Long id) {
+        roleServiceImpl.delete(id);
     }
 }
