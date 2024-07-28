@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dev.simper.dto.AuthRequestDto;
 import com.dev.simper.dto.AuthResponseDto;
 import com.dev.simper.security.JwtTokenUtil;
+import com.dev.simper.service.AuthServiceImpl;
 import com.dev.simper.service.UserDetailsServiceImpl;
 
 
@@ -23,28 +24,14 @@ import com.dev.simper.service.UserDetailsServiceImpl;
 @CrossOrigin
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthServiceImpl authService;
 
-    private final JwtTokenUtil jwtTokenUtil;
-
-    private final UserDetailsServiceImpl userDetailsService;
-
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailsServiceImpl userDetailsServiceImpl) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenUtil = jwtTokenUtil;
-        this.userDetailsService = userDetailsServiceImpl;
+    public AuthController(AuthServiceImpl authServiceImpl) {
+        this.authService = authServiceImpl;
     }
 
     @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequestDto dto) throws Exception {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
-            final String jwt = jwtTokenUtil.generateToken(userDetails);
-            
-            return ResponseEntity.ok(new AuthResponseDto(jwt));
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
+        return authService.createAuthenticationToken(dto);
     }
 }
