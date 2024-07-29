@@ -100,6 +100,11 @@ const AppMenu = () => {
                     label: 'Empty',
                     icon: 'pi pi-fw pi-circle-off',
                     to: '/pages/empty'
+                },
+                {
+                    label: 'Institution',
+                    icon: 'pi pi-fw pi-circle-off',
+                    to: '/pages/institution'
                 }
             ]
         },
