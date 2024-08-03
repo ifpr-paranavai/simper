@@ -5,8 +5,8 @@ import { Carousel } from 'primereact/carousel';
 import { Galleria } from 'primereact/galleria';
 import { Image } from 'primereact/image';
 import React, { useEffect, useState } from 'react';
-import { PhotoService } from '../../../../demo/service/PhotoService';
-import { ProductService } from '../../../../demo/service/ProductService';
+import { PhotoService } from '../../../../service/PhotoService';
+import { ProductService } from '../../../../service/ProductService';
 import type { Demo } from '@/types';
 
 const MediaDemo = () => {

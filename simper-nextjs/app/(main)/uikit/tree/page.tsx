@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Tree, TreeCheckboxSelectionKeys, TreeMultipleSelectionKeys } from 'primereact/tree';
 import { TreeTable, TreeTableSelectionKeysType } from 'primereact/treetable';
 import { Column } from 'primereact/column';
-import { NodeService } from '../../../../demo/service/NodeService';
+import { NodeService } from '../../../../service/NodeService';
 import { TreeNode } from 'primereact/treenode';
 
 const TreeDemo = () => {
