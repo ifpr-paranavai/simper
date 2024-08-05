@@ -94,7 +94,7 @@ const AppMenu = () => {
                 {
                     label: 'Not Found',
                     icon: 'pi pi-fw pi-exclamation-circle',
-                    to: '/pages/notfound'
+                    to: '/notfound'
                 },
                 {
                     label: 'Empty',
@@ -104,7 +104,7 @@ const AppMenu = () => {
                 {
                     label: 'Institution',
                     icon: 'pi pi-fw pi-circle-off',
-                    to: '/pages/institution'
+                    to: '/institution'
                 }
             ]
         },

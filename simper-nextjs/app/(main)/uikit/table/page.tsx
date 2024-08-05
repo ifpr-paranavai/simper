@@ -1,6 +1,6 @@
 'use client';
-import { CustomerService } from '../../../../service/CustomerService';
-import { ProductService } from '../../../../service/ProductService';
+import { CustomerService } from '../../../service/CustomerService';
+import { ProductService } from '../../../service/ProductService';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';

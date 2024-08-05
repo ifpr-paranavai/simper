@@ -14,7 +14,7 @@ import { Toast } from 'primereact/toast';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
-import { ProductService } from '../../../../service/ProductService';
+import { ProductService } from '../../../service/ProductService';
 import { Demo } from '@/types';
 
 /* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */

@@ -7,7 +7,7 @@ import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { Rating } from 'primereact/rating';
 import { PickList } from 'primereact/picklist';
 import { OrderList } from 'primereact/orderlist';
-import { ProductService } from '../../../../service/ProductService';
+import { ProductService } from '../../../service/ProductService';
 import { InputText } from 'primereact/inputtext';
 import type { Demo } from '@/types';
 
