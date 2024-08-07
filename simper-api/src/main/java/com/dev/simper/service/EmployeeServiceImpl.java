@@ -12,7 +12,7 @@ import com.dev.simper.repository.EmployeeRepository;
 import com.dev.simper.utils.ParseUtils;
 import org.springframework.stereotype.Service;
 
-
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
   private final EmployeeRepository employeeRepository;
