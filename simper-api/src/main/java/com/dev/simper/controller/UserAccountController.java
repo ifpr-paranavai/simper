@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.simper.dto.user.UserPasswordResetDto;
 import com.dev.simper.dto.user.UserPasswordResetRequestDto;
-import com.dev.simper.dto.user.UserRegisterDto;
 import com.dev.simper.service.UserAccountServiceImpl;
 
 import jakarta.validation.Valid;
@@ -25,11 +24,6 @@ public class UserAccountController {
         UserAccountServiceImpl userAccountService
     ) {
         this.userAccountService = userAccountService;
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody UserRegisterDto dto) {
-        return userAccountService.register(dto);
     }
 
     @PostMapping("/set-password")
