@@ -59,8 +59,8 @@ const InstitutionPage = () => {
 
     return (
         <div className="surface-0 flex justify-content-center">
+            <Toast ref={toast} />
             <div id="register" className="landing-wrapper overflow-hidden">
-                <Toast ref={toast} />
                 <div className="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static">
                     <Link href="/" className="flex align-items-center">
                         <img src={`/layout/images/${layoutConfig.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}.svg`} alt="Sakai Logo" height="50" className="mr-0 lg:mr-2" />
@@ -197,7 +197,7 @@ const InstitutionPage = () => {
                 }
 
                 { !showForm &&
-                    <div id="form" className="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
+                    <div id="message" className="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
                         <div className="grid justify-content-center">
                             <div className="col-12 mt-8 mb-8 p-2 md:p-8"
                                 style={{

@@ -70,6 +70,11 @@ const AppMenu = () => {
                             to: '/auth/login'
                         },
                         {
+                            label: 'Password Reset',
+                            icon: 'pi pi-fw pi-sign-in',
+                            to: '/auth/password-reset'
+                        },
+                        {
                             label: 'Error',
                             icon: 'pi pi-fw pi-times-circle',
                             to: '/auth/error'
