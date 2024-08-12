@@ -8,7 +8,6 @@ import { Password } from 'primereact/password';
 import { LayoutContext } from '../../../layout/context/layoutcontext';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
-import { ToastContainer } from 'react-toastify';
 
 const LoginPage = () => {
     const [password, setPassword] = useState('');
@@ -20,7 +19,6 @@ const LoginPage = () => {
 
     return (
         <div className={containerClassName}>
-            <ToastContainer />
             <div className="flex flex-column align-items-center justify-content-center">
                 <img src={`/layout/images/logo-${layoutConfig.colorScheme === 'light' ? 'dark' : 'white'}.svg`} alt="Sakai logo" className="mb-5 w-6rem flex-shrink-0" />
                 <div

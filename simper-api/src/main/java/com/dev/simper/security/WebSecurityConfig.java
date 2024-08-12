@@ -17,13 +17,10 @@ import com.dev.simper.service.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
-    private final UserDetailsServiceImpl userDetailsService;
     
     private final JwtRequestFilter jwtRequestFilter;
 
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, JwtRequestFilter jwtRequestFilter) {
-        this.userDetailsService = userDetailsService;
+    public WebSecurityConfig(JwtRequestFilter jwtRequestFilter) {
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
