@@ -2,6 +2,7 @@ package com.dev.simper.service;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.context.MessageSource;
@@ -72,7 +73,7 @@ public class UserAccountServiceImpl implements UserAccountService {
             user.setStatus("ACTIVE");
             clearVerificationCode(user);
             userRepository.saveAndFlush(user);
-            return ResponseEntity.ok(messageSource.getMessage("success.password", null, Locale.getDefault())) ;
+            return ResponseEntity.ok(messageSource.getMessage("success.changed.password", null, Locale.getDefault())) ;
         } else {
             return ResponseEntity.status(400).body(messageSource.getMessage("error.password.code", null, Locale.getDefault()));
         }
@@ -107,7 +108,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     private String generateVerificationCode() {
-        return UUID.randomUUID().toString();
+        return String.valueOf(new Random().nextInt(999999));
     }
 
     private boolean isValidVerificationCode(User model, String verificationCode) {
