@@ -1,6 +1,6 @@
 {
-  "name": "sakai-react",
-  "version": "10.1.0",
+  "name": "simper",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,7 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
-    "axios": "^1.7.3",
+    "axios": "1.7.4",
     "chart.js": "4.2.1",
     "next": "^14.2.5",
     "primeflex": "^3.3.1",

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 import React, { ChangeEventHandler, useContext, useRef, useState } from 'react';
 import { Button } from 'primereact/button';
@@ -10,12 +9,14 @@ import { UserPasswordReset } from '@/app/model/UserPasswordReset';
 import UserAccountService from '@/app/service/UserAccountService';
 import { Toast } from 'primereact/toast';
 import { useRouter } from 'next/navigation';
+import { InputNumber } from 'primereact/inputnumber';
 
 const PasswordResetPage = () => {
 
     const { layoutConfig } = useContext(LayoutContext);
 
     const [ userPasswordReset, setUserPasswordReset ] = useState<UserPasswordReset>(new UserPasswordReset);
+    const [ code, setCode ] = useState<string | number | null | undefined>();
     const [ showPasswordReset, setShowPasswordReset ] = useState(true);
 
     const router = useRouter();
@@ -87,8 +88,10 @@ const PasswordResetPage = () => {
                             <InputText 
                                 id="code" 
                                 name="code" 
-                                type="text" 
-                                placeholder="Verification Code" 
+                                placeholder="Verification Code"
+                                keyfilter="int"
+                                minLength={6}
+                                maxLength={6}
                                 value={userPasswordReset.code}
                                 onChange={handleChange} 
                                 className="w-full md:w-30rem mb-5" 
