@@ -1,5 +1,8 @@
 package com.dev.simper.service;
 
+import java.util.Locale;
+
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,14 +24,18 @@ public class AuthServiceImpl implements AuthService {
 
     private JwtTokenUtil jwtTokenUtil;
 
+    private final MessageSource messageSource;
+
     public AuthServiceImpl(
         AuthenticationManager authenticationManager,
         UserDetailsServiceImpl userDetailsServiceImpl,
-        JwtTokenUtil jwtTokenUtil
+        JwtTokenUtil jwtTokenUtil,
+        MessageSource messageSource
     ) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsServiceImpl;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -40,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
             
             return ResponseEntity.ok(new AuthResponseDto(jwt));
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(messageSource.getMessage("error.invalid.credentials", null, Locale.getDefault()));
         }
     }
 }

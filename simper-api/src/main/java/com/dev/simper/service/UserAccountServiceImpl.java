@@ -54,9 +54,9 @@ public class UserAccountServiceImpl implements UserAccountService {
             userRepository.saveAndFlush(user);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new EmailSendException(messageSource.getMessage("code.email.send.error", null, Locale.getDefault()), e);
+            throw new RuntimeException(messageSource.getMessage("", null, Locale.getDefault()), e);
         }
-        return ResponseEntity.ok(messageSource.getMessage("code.email.send.success", null, Locale.getDefault()));
+        return ResponseEntity.ok(messageSource.getMessage("success.send.code.email", null, Locale.getDefault()));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     public ResponseEntity<String> setPassword(UserPasswordResetDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("user.notfound", new Object[] { dto.getEmail() },
+                        messageSource.getMessage("error.user.notfound.username", new Object[] { dto.getEmail() },
                                 Locale.getDefault())));
 
         if (isValidVerificationCode(user, dto.getCode())) {
@@ -72,9 +72,9 @@ public class UserAccountServiceImpl implements UserAccountService {
             user.setStatus("ACTIVE");
             clearVerificationCode(user);
             userRepository.saveAndFlush(user);
-            return ResponseEntity.ok(messageSource.getMessage("password.success", null, Locale.getDefault())) ;
+            return ResponseEntity.ok(messageSource.getMessage("success.password", null, Locale.getDefault())) ;
         } else {
-            return ResponseEntity.status(400).body(messageSource.getMessage("password.error.code", null, Locale.getDefault()));
+            return ResponseEntity.status(400).body(messageSource.getMessage("error.password.code", null, Locale.getDefault()));
         }
     }
     
@@ -83,16 +83,16 @@ public class UserAccountServiceImpl implements UserAccountService {
     public ResponseEntity<String> sendVerificationCode(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("user.notfound", new Object[] { email }, Locale.getDefault())));
+                        messageSource.getMessage("error.user.notfound.username", new Object[] { email }, Locale.getDefault())));
 
         try {
             generateAndSendVerificationCode(user);
             userRepository.saveAndFlush(user);
         } catch (Exception e) {
             throw new EmailSendException(
-                    messageSource.getMessage("code.email.send.error", null, Locale.getDefault()), e);
+                    messageSource.getMessage("error.send.code.email", null, Locale.getDefault()), e);
         }
-        return ResponseEntity.ok(messageSource.getMessage("code.email.send.success", null, Locale.getDefault()));
+        return ResponseEntity.ok(messageSource.getMessage("success.send.code.email", null, Locale.getDefault()));
     }
 
     private void generateAndSendVerificationCode(User model) throws MessagingException {

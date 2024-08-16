@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("user.notfound", new Object[] { id }, Locale.getDefault())));
+                        messageSource.getMessage("error.user.notfound", new Object[] { id }, Locale.getDefault())));
         return ParseUtils.parse(user, UserDto.class);
     }
 

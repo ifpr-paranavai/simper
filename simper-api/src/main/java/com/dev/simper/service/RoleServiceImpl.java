@@ -33,7 +33,7 @@ public class  RoleServiceImpl implements RoleService {
     public RoleDto findById(Long id) {
         Role role = roleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("role.notfound", new Object[] { id }, Locale.getDefault())));
+                        messageSource.getMessage("error.role.notfound", new Object[] { id }, Locale.getDefault())));
         return ParseUtils.parse(role, RoleDto.class);
     }
 

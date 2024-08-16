@@ -52,7 +52,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     public InstitutionDto findById(Long id) {
         Institution institution = institutionRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage("institution.notfound", new Object[] { id }, Locale.getDefault())));
+            .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage("error.institution.notfound", new Object[] { id }, Locale.getDefault())));
         return ParseUtils.parse(institution,InstitutionDto.class);
     }
 

@@ -29,7 +29,7 @@ public class InstitutionController {
         this.institutionService = institutionService;
     }
 
-    @PostMapping
+    @PostMapping("/save")
     ResponseEntity<InstitutionDto> save(@Valid @RequestBody InstitutionDto dto) {
         return ResponseEntity.ok(institutionService.save(dto));
     }
