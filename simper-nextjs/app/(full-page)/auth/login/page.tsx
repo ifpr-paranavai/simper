@@ -37,7 +37,7 @@ const LoginPage = () => {
         console.info(auth);
         service.createAuthenticationToken(auth)
         .then(res => {
-            utils.setToken(res.data);
+            utils.setToken(res.data.jwt);
             router.push('/');
         })
         .catch(err => {
