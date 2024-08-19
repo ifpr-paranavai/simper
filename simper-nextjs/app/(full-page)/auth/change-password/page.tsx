@@ -1,22 +1,19 @@
 'use client';
 import React, { ChangeEventHandler, useContext, useRef, useState } from 'react';
 import { Button } from 'primereact/button';
-import { Password } from 'primereact/password';
 import { LayoutContext } from '../../../layout/context/layoutcontext';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
-import { UserPasswordReset } from '@/app/model/UserPasswordReset';
 import UserAccountService from '@/app/service/UserAccountService';
 import { Toast } from 'primereact/toast';
 import { useRouter } from 'next/navigation';
-import { InputNumber } from 'primereact/inputnumber';
+import { UserPasswordResetRequest } from '@/app/model/UserPasswordResetRequest';
 
-const PasswordResetPage = () => {
+const ChangePasswordPage = () => {
 
     const { layoutConfig } = useContext(LayoutContext);
 
-    const [ userPasswordReset, setUserPasswordReset ] = useState<UserPasswordReset>(new UserPasswordReset);
-    const [ code, setCode ] = useState<string | number | null | undefined>();
+    const [ userPasswordResetRequest, setUserPasswordResetRequest ] = useState<UserPasswordResetRequest>(new UserPasswordResetRequest);
     const [ showPasswordReset, setShowPasswordReset ] = useState(true);
 
     const router = useRouter();
@@ -26,20 +23,20 @@ const PasswordResetPage = () => {
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
         const { name, value } = e.target;
-        setUserPasswordReset(prevState => ({
+        setUserPasswordResetRequest(prevState => ({
             ...prevState,
             [name]: value
         }));
     }
 
-    const handleSave = () => {
-        service.setPassword(userPasswordReset)
+    const handleReset = () => {
+        service.changePassword(userPasswordResetRequest)
         .then(res => {
             setShowPasswordReset(false);
             toast.current?.show({
                 severity: 'success',
                 summary: 'Successful',
-                detail: 'Password saved',
+                detail: 'Success',
                 life: 3000
             });
         })
@@ -48,7 +45,7 @@ const PasswordResetPage = () => {
             toast.current?.show({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Error on save',
+                detail: err.response ? JSON.stringify(err.response.data) : err.message,
                 life: 3000
             });
         });
@@ -76,44 +73,14 @@ const PasswordResetPage = () => {
                                 name="email" 
                                 type="text" 
                                 placeholder="Email address"
-                                value={userPasswordReset.email}
+                                value={userPasswordResetRequest.email}
                                 onChange={handleChange} 
                                 className="w-full md:w-30rem mb-5" 
                                 style={{ padding: '1rem' }} 
                             />
-
-                            <label htmlFor="code" className="block text-900 text-xl font-medium mb-2">
-                                Verification Code
-                            </label>
-                            <InputText 
-                                id="code" 
-                                name="code" 
-                                placeholder="Verification Code"
-                                keyfilter="int"
-                                minLength={6}
-                                maxLength={6}
-                                value={userPasswordReset.code}
-                                onChange={handleChange} 
-                                className="w-full md:w-30rem mb-5" 
-                                style={{ padding: '1rem' }} 
-                            />
-
-                            <label htmlFor="password" className="block text-900 font-medium text-xl mb-2">
-                                Password
-                            </label>
-                            <Password 
-                                inputId="password" 
-                                name="password" 
-                                value={userPasswordReset.password} 
-                                onChange={handleChange} 
-                                placeholder="Password" 
-                                toggleMask 
-                                className="w-full mb-5" 
-                                inputClassName="w-full p-3 md:w-30rem"
-                            ></Password>
 
                             <div className="flex align-items-center justify-content-between gap-5">
-                                <Button label="Save" severity="help" className="w-full p-3 text-xl" onClick={handleSave}></Button>
+                                <Button label="Reset" severity="help" className="w-full p-3 teal-500 text-xl" onClick={handleReset}></Button>
                             </div>
                         </div>
                     }
@@ -123,8 +90,8 @@ const PasswordResetPage = () => {
                             <div className="flex justify-content-center align-items-center bg-purple-500 border-circle" style={{ height: '3.2rem', width: '3.2rem' }}>
                                 <i className="pi pi-fw pi-check-circle text-2xl text-white"></i>
                             </div>
-                            <h1 className="text-900 font-bold text-5xl mb-2">Password Reset Successful</h1>
-                            <div className="text-600 mb-5">Please log in with your new password.</div>
+                            <h1 className="text-900 font-bold text-5xl mb-2">Password Reset Code Sent Successfully</h1>
+                            <div className="text-600 mb-5">A password reset code has been successfully sent to your email. Please check your inbox and follow the instructions to reset your password.</div>
                             <Button icon="pi pi-arrow-left" label="Go to Login" text onClick={() => router.push('/auth/login')} />
                         </div>
                     }
@@ -134,4 +101,4 @@ const PasswordResetPage = () => {
     );
 };
 
-export default PasswordResetPage;
+export default ChangePasswordPage;
