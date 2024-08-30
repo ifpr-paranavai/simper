@@ -9,7 +9,7 @@ import { StyleClass } from 'primereact/styleclass';
 import { NodeRef } from '@/types';
 import { classNames } from 'primereact/utils';
 import { Ripple } from 'primereact/ripple';
-import { LayoutContext } from '@/app/layout/context/layoutcontext';
+import { LayoutContext } from '@/app/component/context/layoutcontext';
 import { Toast } from 'primereact/toast';
 
 const InstitutionPage = () => {

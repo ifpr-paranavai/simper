@@ -2,7 +2,7 @@
 import React, { ChangeEventHandler, useContext, useRef, useState } from 'react';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
-import { LayoutContext } from '../../../layout/context/layoutcontext';
+import { LayoutContext } from '../../../component/context/layoutcontext';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import { UserPasswordReset } from '@/app/model/UserPasswordReset';

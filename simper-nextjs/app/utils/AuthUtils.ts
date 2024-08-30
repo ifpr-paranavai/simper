@@ -3,6 +3,10 @@ export class AuthUtils {
         localStorage.setItem("token", `Bearer ${token}`);
     }
 
+    getToken() {
+        return localStorage.getItem("token");
+    }
+
     clearToken() {
         localStorage.removeItem("token");
     }

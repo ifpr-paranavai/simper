@@ -5,7 +5,7 @@ import React, { ChangeEventHandler, useContext, useRef, useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
-import { LayoutContext } from '../../../layout/context/layoutcontext';
+import { LayoutContext } from '../../../component/context/layoutcontext';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import AuthService from '@/app/service/AuthService';
@@ -68,8 +68,6 @@ const LoginPage = () => {
                 >
                     <div className="w-full surface-card py-8 px-5 sm:px-8" style={{ borderRadius: '53px' }}>
                         <div className="text-center mb-5">
-                            <img src="/demo/images/login/avatar.png" alt="Image" height="50" className="mb-3" />
-                            <div className="text-900 text-3xl font-medium mb-3">Welcome, Isabel!</div>
                             <span className="text-600 font-medium">Sign in to continue</span>
                         </div>
 
