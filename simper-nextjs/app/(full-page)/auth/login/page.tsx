@@ -21,7 +21,6 @@ const LoginPage = () => {
     const { layoutConfig } = useContext(LayoutContext);
 
     const service = new AuthService;
-    const utils = new AuthUtils;
     const router = useRouter();
     const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' });
 
@@ -37,7 +36,7 @@ const LoginPage = () => {
         console.info(auth);
         service.createAuthenticationToken(auth)
         .then(res => {
-            utils.setToken(res.data.jwt);
+            AuthUtils.setToken(res.data.jwt);
             router.push('/');
         })
         .catch(err => {

@@ -1,13 +1,13 @@
 export class AuthUtils {
-    setToken(token: string) {
+    static setToken(token: string) {
         localStorage.setItem("token", `Bearer ${token}`);
     }
 
-    getToken() {
+    static getToken() {
         return localStorage.getItem("token");
     }
 
-    clearToken() {
+    static clearToken() {
         localStorage.removeItem("token");
     }
 }
