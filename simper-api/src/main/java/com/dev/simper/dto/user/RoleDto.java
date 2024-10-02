@@ -9,6 +9,4 @@ public class RoleDto {
 
     @NotBlank(message = "{name.required}")
     private String name;
-
-    private String note;
 }

@@ -1,7 +1,5 @@
 package com.dev.simper.dto.user;
 
-import com.dev.simper.model.Role;
-import com.dev.simper.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -10,8 +8,8 @@ import lombok.Data;
 public class UserRolesDto {
     private Long id;
 
-    private Role role;
+    private RoleDto role;
 
     @JsonIgnore
-    private User user;
+    private UserDto user;
 }

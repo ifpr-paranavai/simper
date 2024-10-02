@@ -3,7 +3,6 @@ package com.dev.simper.service;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Random;
-import java.util.UUID;
 
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
