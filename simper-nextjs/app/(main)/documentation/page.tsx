@@ -153,7 +153,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         <pre className="app-code">
                             <code>
                                 {`import { Metadata } from 'next';
-import AppConfig from "../../layout/AppConfig";
 import React from "react";
 
 interface FullPageLayoutProps {

@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+import { AuthUtils } from "../utils/AuthUtils";
 
 class BaseService<T> {
     PATH_URL: string = '';
@@ -10,28 +11,30 @@ class BaseService<T> {
         this.PATH_URL = `${process.env.NEXT_PUBLIC_API}/${versionAPI}/${mapping}`;
     }
 
+    config: AxiosRequestConfig = {
+        headers: { Authorization: AuthUtils.getToken.toString() }
+    }
+
     save = (obj: T) => {
-        return axios.post(this.PATH_URL, obj);
+        return axios.post(this.PATH_URL, obj, this.config);
     }
 
     saveAll = (obj: T[]) => {
-        return axios.post(this.PATH_URL, obj);
+        return axios.post(this.PATH_URL, obj, this.config);
     }
 
     update = (obj: T) => {
-        return axios.put(this.PATH_URL, obj);
+        return axios.put(this.PATH_URL, obj, this.config);
     }
 
     delete = (id: number) => {
-        return axios.delete(this.PATH_URL, { 
-            params: { id: id } 
-        });
+        const data: AxiosRequestConfig = this.config.data = { params: { id: id } };
+        return axios.delete(this.PATH_URL, data);
     }
 
     findById = (id: number) => {
-        return axios.get(this.PATH_URL, { 
-            params: { id: id } 
-        });
+        const data: AxiosRequestConfig = this.config.data = { params: { id: id } };
+        return axios.get(this.PATH_URL, data);
     }
 
     findAll = () => {

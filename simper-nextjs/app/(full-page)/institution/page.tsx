@@ -206,7 +206,7 @@ const InstitutionPage = () => {
                                 }}
                             >
                                 <div className="flex flex-column justify-content-center align-items-center text-center px-3 py-3 md:py-0">
-                                    <h3 className="text-gray-900 mb-2">Simper's Team</h3>
+                                    <h3 className="text-gray-900 mb-2">Simper&apos;s Team</h3>
                                     <p className="text-gray-900 sm:line-height-2 md:line-height-4 text-2xl mt-4" style={{ maxWidth: '800px' }}>
                                         Thank you for registering your institution. An email with your login password will be sent to you shortly. Please check your inbox to log in.
                                     </p>
