@@ -1,10 +1,9 @@
 'use client';
-import React, { ChangeEventHandler, useContext, useRef, useState } from 'react';
+import React, { ChangeEventHandler, useRef, useState } from 'react';
 import InstitutionService from '@/app/service/InstitutionService';
 import { Institution } from '@/app/model/Institution';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { LayoutContext } from '@/app/component/context/layoutcontext';
 import { Toast } from 'primereact/toast';
 
 const InstitutionPage = () => {
