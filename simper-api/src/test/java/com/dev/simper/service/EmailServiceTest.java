@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.dev.simper.service.EmailService;
+import com.dev.simper.usecase.email.EmailUseCase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -27,7 +27,7 @@ class EmailServiceTest {
     private TemplateEngine templateEngine;
 
     @InjectMocks
-    private EmailService emailService;
+    private EmailUseCase emailService;
 
     @BeforeEach
     void setUp() {
