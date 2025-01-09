@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.user;
+package com.dev.simper.usecase.user.implementation;
 
 import java.util.Locale;
 
@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.dev.simper.entity.user.gateway.UserGateway;
+import com.dev.simper.usecase.user.contract.IUserDetailsUseCase;
 
 @Service
 public class UserDetailsUseCase implements IUserDetailsUseCase {

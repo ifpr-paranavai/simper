@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.simper.infrastructure.auth.dto.AuthRequestDto;
-import com.dev.simper.usecase.auth.AuthUseCase;
+import com.dev.simper.usecase.auth.contract.IAuthUseCase;
 
 
 @RestController
@@ -16,14 +16,14 @@ import com.dev.simper.usecase.auth.AuthUseCase;
 @CrossOrigin
 public class AuthController {
 
-    private final AuthUseCase authService;
+    private final IAuthUseCase iAuthUseCase;
 
-    public AuthController(AuthUseCase authServiceImpl) {
-        this.authService = authServiceImpl;
+    public AuthController(IAuthUseCase iAuthUseCase) {
+        this.iAuthUseCase = iAuthUseCase;
     }
 
     @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequestDto dto) throws Exception {
-        return authService.createAuthenticationToken(dto);
+        return iAuthUseCase.createAuthenticationToken(dto);
     }
 }

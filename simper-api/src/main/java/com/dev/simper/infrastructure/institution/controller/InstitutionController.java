@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.simper.entity.institution.model.InstitutionModel;
 import com.dev.simper.infrastructure.institution.dto.InstitutionDto;
-import com.dev.simper.usecase.institution.IInstitutionUseCase;
+import com.dev.simper.usecase.institution.contract.IInstitutionUseCase;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;

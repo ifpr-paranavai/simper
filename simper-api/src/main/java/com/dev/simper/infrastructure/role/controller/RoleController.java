@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.dev.simper.entity.role.model.RoleModel;
 import com.dev.simper.infrastructure.role.dto.RoleDto;
-import com.dev.simper.usecase.role.IRoleUseCase;
+import com.dev.simper.usecase.role.contract.IRoleUseCase;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.user;
+package com.dev.simper.usecase.user.contract;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

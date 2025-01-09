@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.auth;
+package com.dev.simper.usecase.auth.contract;
 
 import org.springframework.http.ResponseEntity;
 

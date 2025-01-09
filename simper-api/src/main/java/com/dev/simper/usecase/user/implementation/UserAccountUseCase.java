@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.user;
+package com.dev.simper.usecase.user.implementation;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -13,7 +13,8 @@ import com.dev.simper.entity.exception.EmailSendException;
 import com.dev.simper.entity.exception.ResourceNotFoundException;
 import com.dev.simper.entity.user.gateway.UserGateway;
 import com.dev.simper.entity.user.model.UserModel;
-import com.dev.simper.usecase.email.IEmailUseCase;
+import com.dev.simper.usecase.email.contract.IEmailUseCase;
+import com.dev.simper.usecase.user.contract.IUserAccountUseCase;
 import com.dev.simper.usecase.user.dto.IUserPasswordResetDto;
 import com.dev.simper.usecase.user.dto.IUserRegisterDto;
 import com.dev.simper.utils.ParseUtils;

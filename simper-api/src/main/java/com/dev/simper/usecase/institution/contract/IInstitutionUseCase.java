@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.institution;
+package com.dev.simper.usecase.institution.contract;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.dev.simper.usecase.email.EmailUseCase;
+import com.dev.simper.usecase.email.implementation.EmailUseCase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.institution;
+package com.dev.simper.usecase.institution.implementation;
 
 import java.util.List;
 import java.util.Locale;
@@ -10,8 +10,9 @@ import com.dev.simper.entity.exception.ResourceNotFoundException;
 import com.dev.simper.entity.institution.gateway.InstitutionGateway;
 import com.dev.simper.entity.institution.model.InstitutionModel;
 import com.dev.simper.infrastructure.user.dto.UserRegisterDto;
+import com.dev.simper.usecase.institution.contract.IInstitutionUseCase;
 import com.dev.simper.usecase.institution.dto.IInstitutionDto;
-import com.dev.simper.usecase.user.IUserAccountUseCase;
+import com.dev.simper.usecase.user.contract.IUserAccountUseCase;
 import com.dev.simper.utils.ParseUtils;
 
 @Service

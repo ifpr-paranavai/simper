@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.role;
+package com.dev.simper.usecase.role.implementation;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.dev.simper.entity.exception.ResourceNotFoundException;
 import com.dev.simper.entity.role.gateway.RoleGateway;
 import com.dev.simper.entity.role.model.RoleModel;
+import com.dev.simper.usecase.role.contract.IRoleUseCase;
 import com.dev.simper.usecase.role.dto.IRoleDto;
 import com.dev.simper.utils.ParseUtils;
 

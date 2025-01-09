@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.dev.simper.entity.user.model.UserModel;
 import com.dev.simper.infrastructure.user.dto.UserDto;
-import com.dev.simper.usecase.user.IUserUseCase;
+import com.dev.simper.usecase.user.contract.IUserUseCase;
 
 import java.util.List;
 

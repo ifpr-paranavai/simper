@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.auth;
+package com.dev.simper.usecase.auth.implementation;
 
 import java.util.Locale;
 
@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 import com.dev.simper.infrastructure.auth.dto.AuthRequestDto;
 import com.dev.simper.infrastructure.auth.dto.AuthResponseDto;
 import com.dev.simper.infrastructure.configuration.security.JwtTokenUtil;
-import com.dev.simper.usecase.user.UserDetailsUseCase;
+import com.dev.simper.usecase.auth.contract.IAuthUseCase;
+import com.dev.simper.usecase.user.implementation.UserDetailsUseCase;
 
 @Service
 public class AuthUseCase implements IAuthUseCase {

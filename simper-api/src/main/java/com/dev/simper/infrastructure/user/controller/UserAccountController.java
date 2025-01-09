@@ -15,7 +15,7 @@ import com.dev.simper.entity.exception.EmailSendException;
 import com.dev.simper.entity.exception.ResourceNotFoundException;
 import com.dev.simper.infrastructure.user.dto.UserPasswordResetDto;
 import com.dev.simper.infrastructure.user.dto.UserPasswordResetRequestDto;
-import com.dev.simper.usecase.user.IUserAccountUseCase;
+import com.dev.simper.usecase.user.contract.IUserAccountUseCase;
 
 import jakarta.validation.Valid;
 

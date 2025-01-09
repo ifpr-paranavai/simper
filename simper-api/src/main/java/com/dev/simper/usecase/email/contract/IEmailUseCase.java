@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.email;
+package com.dev.simper.usecase.email.contract;
 
 import org.thymeleaf.context.Context;
 

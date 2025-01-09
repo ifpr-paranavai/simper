@@ -1,4 +1,4 @@
-package com.dev.simper.usecase.user;
+package com.dev.simper.usecase.user.implementation;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -7,6 +7,7 @@ import com.dev.simper.entity.exception.ResourceNotFoundException;
 import com.dev.simper.entity.user.gateway.UserGateway;
 import com.dev.simper.entity.user.model.UserModel;
 import com.dev.simper.infrastructure.user.dto.UserDto;
+import com.dev.simper.usecase.user.contract.IUserUseCase;
 import com.dev.simper.usecase.user.dto.IUserDto;
 import com.dev.simper.utils.ParseUtils;
 
