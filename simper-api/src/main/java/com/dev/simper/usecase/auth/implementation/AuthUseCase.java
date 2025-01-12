@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import com.dev.simper.infrastructure.auth.dto.AuthRequestDto;
 import com.dev.simper.infrastructure.auth.dto.AuthResponseDto;
@@ -17,7 +16,6 @@ import com.dev.simper.infrastructure.configuration.security.JwtTokenUtil;
 import com.dev.simper.usecase.auth.contract.IAuthUseCase;
 import com.dev.simper.usecase.user.implementation.UserDetailsUseCase;
 
-@Service
 public class AuthUseCase implements IAuthUseCase {
 
     private final AuthenticationManager authenticationManager;

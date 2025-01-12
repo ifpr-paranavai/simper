@@ -1,7 +1,6 @@
 package com.dev.simper.usecase.user.implementation;
 
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
 
 import com.dev.simper.entity.exception.ResourceNotFoundException;
 import com.dev.simper.entity.user.gateway.UserGateway;
@@ -14,7 +13,6 @@ import com.dev.simper.utils.ParseUtils;
 import java.util.List;
 import java.util.Locale;
 
-@Service
 public class UserUseCase implements IUserUseCase {
 
     private final UserGateway userGateway;

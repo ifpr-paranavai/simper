@@ -5,12 +5,10 @@ import java.util.Locale;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import com.dev.simper.entity.user.gateway.UserGateway;
 import com.dev.simper.usecase.user.contract.IUserDetailsUseCase;
 
-@Service
 public class UserDetailsUseCase implements IUserDetailsUseCase {
 
     private final UserGateway userGateway;

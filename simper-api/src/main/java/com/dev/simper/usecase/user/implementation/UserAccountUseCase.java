@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
 import com.dev.simper.entity.exception.EmailSendException;
@@ -22,7 +21,6 @@ import com.dev.simper.utils.ParseUtils;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 
-@Service
 public class UserAccountUseCase implements IUserAccountUseCase {
 
     private final UserGateway userGateway;

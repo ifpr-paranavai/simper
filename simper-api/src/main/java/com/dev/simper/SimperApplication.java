@@ -9,5 +9,4 @@ public class SimperApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SimperApplication.class, args);
 	}
-
 }

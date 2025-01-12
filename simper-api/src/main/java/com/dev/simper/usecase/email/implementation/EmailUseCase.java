@@ -1,7 +1,5 @@
 package com.dev.simper.usecase.email.implementation;
 
-import org.springframework.stereotype.Service;
-
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -13,7 +11,6 @@ import com.dev.simper.usecase.email.contract.IEmailUseCase;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
-@Service
 public class EmailUseCase implements IEmailUseCase {
 
     private final JavaMailSender mailSender;

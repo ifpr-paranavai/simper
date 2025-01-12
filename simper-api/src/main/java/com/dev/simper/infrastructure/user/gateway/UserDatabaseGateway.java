@@ -16,7 +16,7 @@ public class UserDatabaseGateway implements UserGateway {
 
     private final UserRepository userRepository;
 
-    UserDatabaseGateway(UserRepository userRepository) {
+    public UserDatabaseGateway(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
