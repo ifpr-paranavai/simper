@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import com.dev.simper.entity.user.model.UserModel;
 import com.dev.simper.infrastructure.user.dto.UserDto;
-import com.dev.simper.usecase.user.contract.IUserUseCase;
+import com.dev.simper.usecase.user.contract.IDeleteUserUseCase;
+import com.dev.simper.usecase.user.contract.IGetUserUseCase;
+import com.dev.simper.usecase.user.contract.IListUserUseCase;
+import com.dev.simper.usecase.user.contract.ISaveUserUseCase;
+import com.dev.simper.usecase.user.contract.IUpdatedUserUseCase;
 
 import java.util.List;
 
@@ -17,35 +21,49 @@ import java.util.List;
 @RequestMapping("/v1/users")
 public class UserController {
 
-    private final IUserUseCase iUserUseCase;
+    private final ISaveUserUseCase iSaveUserUseCase;
+    private final IUpdatedUserUseCase iUpdatedUserUseCase;
+    private final IDeleteUserUseCase iDeleteUserUseCase;
+    private final IGetUserUseCase iGetUserUseCase;
+    private final IListUserUseCase iListUserUseCase;
 
-    UserController(IUserUseCase iUserUseCase) {
-        this.iUserUseCase = iUserUseCase;
+    UserController(
+        ISaveUserUseCase iSaveUserUseCase,
+        IUpdatedUserUseCase iUpdatedUserUseCase,
+        IDeleteUserUseCase iDeleteUserUseCase,
+        IGetUserUseCase iGetUserUseCase,
+        IListUserUseCase iListUserUseCase
+    ) {
+        this.iSaveUserUseCase = iSaveUserUseCase;
+        this.iUpdatedUserUseCase = iUpdatedUserUseCase;
+        this.iDeleteUserUseCase = iDeleteUserUseCase;
+        this.iGetUserUseCase = iGetUserUseCase;
+        this.iListUserUseCase = iListUserUseCase;
     }
 
     @GetMapping
-    ResponseEntity<List<UserModel>> findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(iUserUseCase.findAll());
+    ResponseEntity<List<UserModel>> list() {
+        return ResponseEntity.status(HttpStatus.OK).body(iListUserUseCase.execute());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<UserModel> findById(@PathVariable @Positive Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(iUserUseCase.findById(id));
+    ResponseEntity<UserModel> get(@PathVariable @Positive Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(iGetUserUseCase.execute(id));
     }
 
     @PostMapping
     ResponseEntity<UserModel> save(@Valid @RequestBody UserDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(iUserUseCase.save(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(iSaveUserUseCase.execute(dto));
     }
 
     @PutMapping("/{id}")
     ResponseEntity<UserModel> update(@PathVariable @Positive Long id, @Valid @RequestBody UserDto dto) {
-        return ResponseEntity.status(HttpStatus.OK).body(iUserUseCase.update(dto));
+        return ResponseEntity.status(HttpStatus.OK).body(iUpdatedUserUseCase.execute(dto));
     }
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable @Positive Long id) {
-        iUserUseCase.delete(id);
+        iDeleteUserUseCase.execute(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

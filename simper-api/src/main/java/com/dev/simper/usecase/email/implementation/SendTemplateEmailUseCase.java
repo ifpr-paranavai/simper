@@ -1,39 +1,23 @@
 package com.dev.simper.usecase.email.implementation;
 
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.dev.simper.usecase.email.contract.IEmailUseCase;
+import com.dev.simper.usecase.email.contract.ISendTemplateEmailUseCase;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
-public class EmailUseCase implements IEmailUseCase {
+public class SendTemplateEmailUseCase implements ISendTemplateEmailUseCase {
 
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
 
-    public EmailUseCase(JavaMailSender javaMailSender, TemplateEngine templateEngine) {
+    public SendTemplateEmailUseCase(JavaMailSender javaMailSender, TemplateEngine templateEngine) {
         this.mailSender = javaMailSender;
         this.templateEngine = templateEngine;
-    }
-
-    /**
-     * Sends a simple email with the provided recipient, subject, and text.
-     *
-     * @param to      the recipient's email address
-     * @param subject the email subject
-     * @param text    the email content
-     */
-    public void sendSimpleEmail(String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        mailSender.send(message);
     }
 
     /**
@@ -45,7 +29,8 @@ public class EmailUseCase implements IEmailUseCase {
      * @param templateFileName the name of the HTML template file
      * @throws MessagingException if an error occurs while sending the email
      */
-    public void sendTemplateEmail(String to, String subject, Context emailVariables, String templateFileName)
+    @Override
+    public void execute(String to, String subject, Context emailVariables, String templateFileName)
             throws MessagingException {
 
         String process = templateEngine.process(templateFileName, emailVariables);

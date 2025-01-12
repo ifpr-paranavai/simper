@@ -14,23 +14,23 @@ import com.dev.simper.infrastructure.auth.dto.AuthRequestDto;
 import com.dev.simper.infrastructure.auth.dto.AuthResponseDto;
 import com.dev.simper.infrastructure.configuration.security.JwtTokenUtil;
 import com.dev.simper.usecase.auth.contract.IAuthUseCase;
-import com.dev.simper.usecase.user.implementation.UserDetailsUseCase;
+import com.dev.simper.usecase.user.contract.ILoadUserDetailsUseCase;
 
 public class AuthUseCase implements IAuthUseCase {
 
     private final AuthenticationManager authenticationManager;
-    private final UserDetailsUseCase userDetailsService;
+    private final ILoadUserDetailsUseCase iLoadUserDetailsUseCase;
     private final JwtTokenUtil jwtTokenUtil;
     private final MessageSource messageSource;
 
     public AuthUseCase(
         AuthenticationManager authenticationManager,
-        UserDetailsUseCase userDetailsServiceImpl,
+        ILoadUserDetailsUseCase iLoadUserDetailsUseCase,
         JwtTokenUtil jwtTokenUtil,
         MessageSource messageSource
     ) {
         this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsServiceImpl;
+        this.iLoadUserDetailsUseCase = iLoadUserDetailsUseCase;
         this.jwtTokenUtil = jwtTokenUtil;
         this.messageSource = messageSource;
     }
@@ -39,7 +39,7 @@ public class AuthUseCase implements IAuthUseCase {
     public ResponseEntity<?> createAuthenticationToken(AuthRequestDto dto) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
+            final UserDetails userDetails = iLoadUserDetailsUseCase.execute(dto.getEmail());
             final String jwt = jwtTokenUtil.generateToken(userDetails);
             
             return ResponseEntity.ok(new AuthResponseDto(jwt));

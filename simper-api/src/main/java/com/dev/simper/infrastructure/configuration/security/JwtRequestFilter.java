@@ -13,18 +13,21 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.dev.simper.usecase.user.contract.IUserDetailsUseCase;
+import com.dev.simper.usecase.user.contract.ILoadUserDetailsUseCase;
 
 import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final IUserDetailsUseCase iUserDetailsUseCase;
+    private final ILoadUserDetailsUseCase iLoadUserDetailsUseCase;
     private final JwtTokenUtil jwtTokenUtil;
 
-    public JwtRequestFilter(IUserDetailsUseCase iUserDetailsUseCase, JwtTokenUtil jwtTokenUtil) {
-        this.iUserDetailsUseCase = iUserDetailsUseCase;
+    public JwtRequestFilter(
+        ILoadUserDetailsUseCase iLoadUserDetailsUseCase, 
+        JwtTokenUtil jwtTokenUtil
+    ) {
+        this.iLoadUserDetailsUseCase = iLoadUserDetailsUseCase;
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
@@ -47,7 +50,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = iUserDetailsUseCase.loadUserByUsername(username);
+            UserDetails userDetails = iLoadUserDetailsUseCase.execute(username);
 
             if (jwtTokenUtil.validateToken(jwt, userDetails)) {
 

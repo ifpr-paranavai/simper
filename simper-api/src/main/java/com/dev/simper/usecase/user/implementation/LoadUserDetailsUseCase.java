@@ -7,20 +7,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.dev.simper.entity.user.gateway.UserGateway;
-import com.dev.simper.usecase.user.contract.IUserDetailsUseCase;
+import com.dev.simper.usecase.user.contract.ILoadUserDetailsUseCase;
 
-public class UserDetailsUseCase implements IUserDetailsUseCase {
+public class LoadUserDetailsUseCase implements ILoadUserDetailsUseCase {
 
     private final UserGateway userGateway;
     private final MessageSource messageSource;
 
-    public UserDetailsUseCase(UserGateway userGateway, MessageSource messageSource) {
+    public LoadUserDetailsUseCase(
+        UserGateway userGateway, 
+        MessageSource messageSource
+    ) {
         this.userGateway = userGateway;
         this.messageSource = messageSource;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails execute(String username) throws UsernameNotFoundException {
         return userGateway.findByEmail(username)
                 .orElseThrow(() -> 
                     new UsernameNotFoundException(messageSource.getMessage("error.user.notfound.username", new Object[] { username }, Locale.getDefault()))

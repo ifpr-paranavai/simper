@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.thymeleaf.TemplateEngine;
 
-import com.dev.simper.entity.user.gateway.UserGateway;
 import com.dev.simper.infrastructure.configuration.database.repository.InstitutionRepository;
 import com.dev.simper.infrastructure.configuration.database.repository.RoleRepository;
 import com.dev.simper.infrastructure.configuration.database.repository.UserRepository;
@@ -17,8 +16,8 @@ import com.dev.simper.infrastructure.institution.gateway.InstitutionDatabaseGate
 import com.dev.simper.infrastructure.role.gateway.RoleDatabaseGateway;
 import com.dev.simper.infrastructure.user.gateway.UserDatabaseGateway;
 import com.dev.simper.usecase.auth.implementation.AuthUseCase;
-import com.dev.simper.usecase.email.contract.IEmailUseCase;
-import com.dev.simper.usecase.email.implementation.EmailUseCase;
+import com.dev.simper.usecase.email.contract.ISendTemplateEmailUseCase;
+import com.dev.simper.usecase.email.implementation.SendTemplateEmailUseCase;
 import com.dev.simper.usecase.institution.implementation.GetInstitutionUseCase;
 import com.dev.simper.usecase.institution.implementation.ListInstitutionUseCase;
 import com.dev.simper.usecase.institution.implementation.SaveInstitutionUseCase;
@@ -27,10 +26,17 @@ import com.dev.simper.usecase.role.implementation.GetRoleUseCase;
 import com.dev.simper.usecase.role.implementation.ListRoleUseCase;
 import com.dev.simper.usecase.role.implementation.SaveRoleUseCase;
 import com.dev.simper.usecase.role.implementation.UpdateRoleUseCase;
-import com.dev.simper.usecase.user.contract.IUserAccountUseCase;
-import com.dev.simper.usecase.user.implementation.UserAccountUseCase;
-import com.dev.simper.usecase.user.implementation.UserDetailsUseCase;
-import com.dev.simper.usecase.user.implementation.UserUseCase;
+import com.dev.simper.usecase.user.contract.ILoadUserDetailsUseCase;
+import com.dev.simper.usecase.user.contract.IRegisterUserAccountUseCase;
+import com.dev.simper.usecase.user.implementation.ChangePasswordUserAccountUseCase;
+import com.dev.simper.usecase.user.implementation.DeleteUserUseCase;
+import com.dev.simper.usecase.user.implementation.GetUserUseCase;
+import com.dev.simper.usecase.user.implementation.ListUserUseCase;
+import com.dev.simper.usecase.user.implementation.LoadUserDetailsUseCase;
+import com.dev.simper.usecase.user.implementation.RegisterUserAccountUseCase;
+import com.dev.simper.usecase.user.implementation.SaveUserUseCase;
+import com.dev.simper.usecase.user.implementation.SetPasswordUserAccountUseCase;
+import com.dev.simper.usecase.user.implementation.UpdateUserUseCase;
 
 @Configuration
 public class BeanConfig {
@@ -38,29 +44,29 @@ public class BeanConfig {
     @Bean
     AuthUseCase authUseCase(
         AuthenticationManager authenticationManager,
-        UserDetailsUseCase userDetailsServiceImpl,
+        ILoadUserDetailsUseCase iLoadUserDetailsUseCase,
         JwtTokenUtil jwtTokenUtil,
         MessageSource messageSource
     ) {
-        return new AuthUseCase(authenticationManager, userDetailsServiceImpl, jwtTokenUtil, messageSource);
+        return new AuthUseCase(authenticationManager, iLoadUserDetailsUseCase, jwtTokenUtil, messageSource);
     }
 
     @Bean
-    EmailUseCase emailUseCase(
+    SendTemplateEmailUseCase emailUseCase(
         JavaMailSender javaMailSender, 
         TemplateEngine templateEngine
     ) {
-        return new EmailUseCase(javaMailSender, templateEngine);
+        return new SendTemplateEmailUseCase(javaMailSender, templateEngine);
     }
 
     @Bean
     SaveInstitutionUseCase saveInstitutionUseCase(
         InstitutionRepository institutionRepository,
-        IUserAccountUseCase iUserAccountUseCase
+        IRegisterUserAccountUseCase iRegisterUserAccountUseCase
     ) {
         return new SaveInstitutionUseCase(
             new InstitutionDatabaseGateway(institutionRepository),
-            iUserAccountUseCase
+            iRegisterUserAccountUseCase
         );
     }
 
@@ -132,31 +138,99 @@ public class BeanConfig {
     }
 
     @Bean
-    UserAccountUseCase userAccountUseCase(
+    RegisterUserAccountUseCase registerUserAccountUseCase(
         UserRepository userRepository,
-        IEmailUseCase iEmailUseCase,
+        ISendTemplateEmailUseCase iSendTemplateEmailUseCase,
+        MessageSource messageSource
+    ) {
+        return new RegisterUserAccountUseCase(
+            new UserDatabaseGateway(userRepository),
+            iSendTemplateEmailUseCase,
+            messageSource
+        );
+    }
+
+    @Bean
+    ChangePasswordUserAccountUseCase changePasswordUserAccountUseCase(
+        UserRepository userRepository,
+        ISendTemplateEmailUseCase iSendTemplateEmailUseCase,
+        MessageSource messageSource
+    ) {
+        return new ChangePasswordUserAccountUseCase(
+            new UserDatabaseGateway(userRepository), 
+            iSendTemplateEmailUseCase, 
+            messageSource
+        );
+    }
+
+    @Bean
+    SetPasswordUserAccountUseCase setPasswordUserAccountUseCase(
+        UserRepository userRepository,
         MessageSource messageSource,
         PasswordEncoder passwordEncoder
     ) {
-        UserGateway userGateway = new UserDatabaseGateway(userRepository);
-        return new UserAccountUseCase(userGateway, iEmailUseCase, messageSource, passwordEncoder);
+        return new SetPasswordUserAccountUseCase(
+            new UserDatabaseGateway(userRepository),
+            messageSource,
+            passwordEncoder
+        );
     }
 
     @Bean
-    UserDetailsUseCase userDetailsUseCase(
+    LoadUserDetailsUseCase loadUserDetailsUseCase(
         UserRepository userRepository,
         MessageSource messageSource
     ) {
-        UserGateway userGateway = new UserDatabaseGateway(userRepository);
-        return new UserDetailsUseCase(userGateway, messageSource);
+        return new LoadUserDetailsUseCase(
+            new UserDatabaseGateway(userRepository),
+            messageSource
+        );
     }
 
     @Bean
-    UserUseCase UserUseCase(
-        UserRepository userRepository, 
+    SaveUserUseCase saveUserUseCase(
+        UserRepository userRepository
+    ) {
+        return new SaveUserUseCase(
+            new UserDatabaseGateway(userRepository)
+        );
+    }
+
+    @Bean
+    UpdateUserUseCase updateUserUseCase(
+        UserRepository userRepository
+    ) {
+        return new UpdateUserUseCase(
+            new UserDatabaseGateway(userRepository)
+        );
+    }
+
+    @Bean
+    DeleteUserUseCase deleteUserUseCase(
+        UserRepository userRepository
+    ) {
+        return new DeleteUserUseCase(
+            new UserDatabaseGateway(userRepository)
+        );
+    }
+
+    @Bean
+    GetUserUseCase getUserUseCase(
+        UserRepository userRepository,
         MessageSource messageSource
     ) {
-        UserGateway userGateway = new UserDatabaseGateway(userRepository);
-        return new UserUseCase(userGateway, messageSource);
+        return new GetUserUseCase(
+            new UserDatabaseGateway(userRepository),
+            messageSource
+        );
+    }
+
+    @Bean
+    ListUserUseCase listUserUseCase(
+        UserRepository userRepository
+    ) {
+        return new ListUserUseCase(
+            new UserDatabaseGateway(userRepository)
+        );
     }
 }

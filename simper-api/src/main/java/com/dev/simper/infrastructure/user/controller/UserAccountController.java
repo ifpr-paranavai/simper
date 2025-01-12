@@ -15,7 +15,8 @@ import com.dev.simper.entity.exception.EmailSendException;
 import com.dev.simper.entity.exception.ResourceNotFoundException;
 import com.dev.simper.infrastructure.user.dto.UserPasswordResetDto;
 import com.dev.simper.infrastructure.user.dto.UserPasswordResetRequestDto;
-import com.dev.simper.usecase.user.contract.IUserAccountUseCase;
+import com.dev.simper.usecase.user.contract.IChangePasswordUserAccountUseCase;
+import com.dev.simper.usecase.user.contract.ISetPasswordUserAccountUseCase;
 
 import jakarta.validation.Valid;
 
@@ -24,18 +25,24 @@ import jakarta.validation.Valid;
 @CrossOrigin
 public class UserAccountController {
 
-    private final IUserAccountUseCase iUserAccountUseCase;
+    private final ISetPasswordUserAccountUseCase iSetPasswordUserAccountUseCase;
+    private final IChangePasswordUserAccountUseCase iChangePasswordUserAccountUseCase;
     private final MessageSource messageSource;
 
-    public UserAccountController(IUserAccountUseCase iUserAccountUseCase, MessageSource messageSource) {
-        this.iUserAccountUseCase = iUserAccountUseCase;
+    public UserAccountController(
+        ISetPasswordUserAccountUseCase iSetPasswordUserAccountUseCase,
+        IChangePasswordUserAccountUseCase iChangePasswordUserAccountUseCase,
+        MessageSource messageSource
+    ) {
+        this.iSetPasswordUserAccountUseCase = iSetPasswordUserAccountUseCase;
+        this.iChangePasswordUserAccountUseCase = iChangePasswordUserAccountUseCase;
         this.messageSource = messageSource;
     }
 
     @PostMapping("/set-password")
     public ResponseEntity<String> setPassword(@Valid @RequestBody UserPasswordResetDto dto) {
         try {
-            iUserAccountUseCase.setPassword(dto);
+            iSetPasswordUserAccountUseCase.execute(dto);
             return ResponseEntity.status(HttpStatus.OK).body(messageSource.getMessage("success.changed.password", null, Locale.getDefault()));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -47,7 +54,7 @@ public class UserAccountController {
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@Valid @RequestBody UserPasswordResetRequestDto dto) {
         try {
-            iUserAccountUseCase.changePassword(dto.email());
+            iChangePasswordUserAccountUseCase.execute(dto.email());
             return ResponseEntity.status(HttpStatus.OK).body(messageSource.getMessage("success.send.code.email", null, Locale.getDefault()));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

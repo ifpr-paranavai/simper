@@ -5,27 +5,27 @@ import com.dev.simper.entity.institution.model.InstitutionModel;
 import com.dev.simper.infrastructure.user.dto.UserRegisterDto;
 import com.dev.simper.usecase.institution.contract.ISaveInstitutionUseCase;
 import com.dev.simper.usecase.institution.dto.IInstitutionDto;
-import com.dev.simper.usecase.user.contract.IUserAccountUseCase;
+import com.dev.simper.usecase.user.contract.IRegisterUserAccountUseCase;
 import com.dev.simper.utils.ParseUtils;
 
 public class SaveInstitutionUseCase implements ISaveInstitutionUseCase {
 
     private final InstitutionGateway institutionGateway;
-    private final IUserAccountUseCase iUserAccountUseCase;
+    private final IRegisterUserAccountUseCase iRegisterUserAccountUseCase;
 
     public SaveInstitutionUseCase(
         InstitutionGateway institutionGateway, 
-        IUserAccountUseCase iUserAccountUseCase
+        IRegisterUserAccountUseCase iRegisterUserAccountUseCase
     ) {
         this.institutionGateway = institutionGateway;
-        this.iUserAccountUseCase = iUserAccountUseCase;
+        this.iRegisterUserAccountUseCase = iRegisterUserAccountUseCase;
     }
 
     @Override
     public InstitutionModel execute(IInstitutionDto dto) {
         InstitutionModel institution = institutionGateway.save(ParseUtils.parse(dto, InstitutionModel.class));
         // creation user from responsible for institution
-        iUserAccountUseCase.register(
+        iRegisterUserAccountUseCase.execute(
             UserRegisterDto
             .builder()
             .name(dto.name())
